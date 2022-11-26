@@ -1,38 +1,35 @@
-from flask import Flask
-from flask import render_template
-import cv2
-import sys
-
-# from database import Clothe
+from flask import Flask, render_template, request, redirect
+from flask_login import LoginManager, login_user, login_required, logout_user
+from database import Clothe
+from PIL import Image
+import os
+from database import Clothe
 
 app = Flask(__name__)
 
 
-@app.route('/')
+@app.route("/")
 def index():
-    return render_template("index.html")
+    return render_template("upload.html")
 
 
-@app.route('/')
-def create():
-    cap = cv2.VideoCapture(0)
-    while True:
-        ret, frame = cap.read()
-        cv2.imshow('camera', frame)
-        key = cv2.waitKey(10)
-        if key == 27:
-            break
-    cap.release()
-    cv2.destroyAllWindows()
+@app.route("/upload", methods=["POST"])
+def upload_post():
+    files = request.files.getlist("file")
+    for file in files:
+        img = Image.open(file)
+        img.save(os.path.join("static/images", file.filename))
+    Clothe.create(file=files)
+    # img.execute('INSERT INTO persons(n) values("Hanako")')
+    return render_template("upload.html")
+
+
+
 # @app.route('/create')
 # def create():
 #     return render_template("create.html")
-
-
 # @app.route('/create', methods=["POST"])
 # def method_name():
 #     redirect()
-
-
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=5001, debug=True)
