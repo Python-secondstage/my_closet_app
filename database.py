@@ -15,7 +15,7 @@ print("接続OK")
 
 class Clothe(UserMixin, Model):
     id = IntegerField(primary_key=True)  # 数字
-    name = CharField()  # 文字
+    file = CharField()  # 画像
 
     class Meta:
         database = db
