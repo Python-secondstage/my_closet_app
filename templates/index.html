@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<!-- <div class="d-flex"> -->
+{% for file in files %}
+<!-- <p>{{ file.file }}</p> -->
+<img src="{{ file.file }}" alt="" width="30%" height="60%" class="border border-2 border-info block">
+<div>{{ file.type }}</div><br>
+{% endfor %}
+<!-- </div> -->
+
+<p class="mt-5 mb-5"><a href="/" class="btn btn-outline-info">登録画面</a></p>
+
+{% endblock %}
