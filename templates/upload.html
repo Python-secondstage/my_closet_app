@@ -2,10 +2,20 @@
 
 {% block content %}
 <form action="/upload" method="post" enctype="multipart/form-data">
-    <p class="text_center">クローゼットの服を登録してください</p>
+    <p class="text_center mt-2">クローゼットの服を登録してください</p>
     <input type="file" name="file" value="take a photo" accept="image/*" multiple />
+    <label for="">服の種類</label><br>
+    <select name="type" class="form-select" aria-label="Default select example" required>
+        <option value="" selected>Open this select menu</option>
+        {% for type in types %}
+        <option value="{{ type.type2 }}">{{ type.type2 }} ( {{ type.type1 }} )</option>
+        {% endfor %}
+    </select>
     <div class="button_center">
-        <input type="submit" value="upload" class="btn btn-outline-secondary">
+        <input type="submit" value="upload" class="btn btn-outline-secondary mt-2 mb-2">
     </div>
 </form>
+<a href="/index" class="btn btn-outline-info">一覧</a>
+<a href="/login" class="btn btn-outline-info">ログイン</a>
+<a href="/signup" class="btn btn-outline-info">会員登録</a>
 {% endblock %}
